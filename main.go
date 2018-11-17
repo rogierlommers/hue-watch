@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"time"
 
 	"github.com/amimof/huego"
@@ -13,13 +14,14 @@ type sensorState struct {
 }
 
 // enter Bridge IP and API password here
-var bridge = huego.New("192.168.1.7", "")
+var bridge = huego.New("192.168.1.7", os.Getenv("HUE_API_KEY"))
 
 // savedState contains in-memory state of all sensors
 var savedState = make(map[int]sensorState)
 
 func main() {
 	logrus.SetLevel(logrus.DebugLevel)
+
 	if err := showLights(); err != nil {
 		logrus.Error(err)
 	}
@@ -38,7 +40,7 @@ func main() {
 
 func alertLight(sensor huego.Sensor) {
 
-	if sensor.ID == 25 {
+	if sensor.ID == 12 {
 		light, err := bridge.GetLight(3)
 		if err != nil {
 			logrus.Error(err)
@@ -62,7 +64,6 @@ func checkChanges(savedState map[int]sensorState, sensors []huego.Sensor) {
 
 			if _, exists := savedState[sensor.ID]; !exists {
 				logrus.Infof("found sensor %q, saving as ID %d", sensor.Name, sensor.ID)
-
 				savedState[sensor.ID] = sensorState{ID: sensor.ID, presence: sensor.State["presence"].(bool)}
 			} else {
 
