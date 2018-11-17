@@ -3,3 +3,6 @@ With HUE sensor watcher, you can monitor your Philips HUE sensors for changes. I
 
 ## Work in progress
 I just started with this project; so it's 100% work-in-progress
+
+## Example output
+![Colored](https://i.imgur.com/clIgMkc.gif)
