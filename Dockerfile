@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:24.04
 LABEL description="HUE watch"
 LABEL maintainer="Rogier Lommers <rogier@lommers.org>"
 
